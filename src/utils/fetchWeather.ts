@@ -15,10 +15,8 @@ export interface WeatherData {
 }
 
 export const fetchWeather = async (city: string): Promise<WeatherData> => {
-  const apiKey: string | undefined = process.env.PUBLIC_WEATHER_API_KEY;
+  const apiKey: string | undefined = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const url: string = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-
-  // https://api.openweathermap.org/data/2.5/weather?q=rangpur&appid=2c25f597cb5116feecb9222970b19230
 
   try {
     const response: AxiosResponse = await axios.get(url);
