@@ -1,7 +1,7 @@
 // app/page.tsx
 import { authOptions } from "@/auth/authOptions";
 import { Button } from "@/components/ui/Button";
-import Navbar from "@/components/ui/Navbar";
+import NavbarWrapper from "@/components/ui/NavbarWrapper";
 import RegionInfo from "@/components/utils/RegionInfo";
 import WeatherInput from "@/components/utils/WeatherInput";
 import { getServerSession } from 'next-auth';
@@ -17,18 +17,10 @@ export default async function Home() {
   
   return (
     <div style={{ textAlign: 'center' }}>
-      
-      <Navbar
-        brandName="oneManDev"
-        profileImage={session?.user?.image as string}
-        onLogoutClick={"/api/auth/signout"}
-        onProfileClick={"/userCourse/"}
-        onSettingsClick={""}
-      />
-      
-      {session?.user?.name}
 
-      {/* {session?.user?.image} */}
+      <NavbarWrapper session={session} />
+
+      <p>Welcome, {session?.user?.name}</p>
 
       <Button href="/api/auth/signin" text="Login"/>
       

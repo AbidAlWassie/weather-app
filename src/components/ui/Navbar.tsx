@@ -10,6 +10,7 @@ interface NavbarProps {
   onProfileClick: string;
   onSettingsClick: string;
   onLogoutClick: string;
+  toggleProfile: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -17,7 +18,8 @@ const Navbar: React.FC<NavbarProps> = ({
   profileImage,
   onProfileClick,
   onSettingsClick,
-  onLogoutClick
+  onLogoutClick,
+  toggleProfile
 }) => {
   return (
     <div className="navbar bg-base-100">
@@ -27,12 +29,10 @@ const Navbar: React.FC<NavbarProps> = ({
       <div className="flex-none">
         <ThemeController />
 
-        <div className="dropdown dropdown-end">
+        <div className={`dropdown dropdown-end ${toggleProfile}`}>
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img
-                alt="User Profile"
-                src={profileImage} />
+              <img src={profileImage} alt="User Profile"/>
             </div>
           </div>
           <ul
@@ -52,6 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({
             </li>
           </ul>
         </div>
+        
       </div>
     </div>
   );
