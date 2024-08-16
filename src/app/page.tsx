@@ -1,4 +1,5 @@
 // app/page.tsx
+import { Button } from "@/components/ui/Button";
 import RegionInfo from "@/components/utils/RegionInfo";
 import WeatherInput from "@/components/utils/WeatherInput";
 
@@ -11,6 +12,9 @@ export default function Home() {
 
   return (
     <div style={{ textAlign: 'center' }}>
+
+      <Button href="/api/auth/signin" text="Login"/>
+      
       <h1>Weather App</h1>
 
       <RegionInfo region={regionCode} timeZone={timeZone} />
