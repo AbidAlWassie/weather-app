@@ -1,15 +1,18 @@
+// src/lib/db.ts
+
 import { PrismaClient } from '@prisma/client';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient()
+// Extend the Node.js global object to include our prisma client
+declare global {
+  var prismaGlobal: PrismaClient | undefined;
 }
 
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+// Singleton pattern for Prisma Client
+const prisma = global.prismaGlobal || new PrismaClient();
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+// Only in development, assign the client to globalThis to reuse it across hot reloads
+if (process.env.NODE_ENV !== 'production') {
+  global.prismaGlobal = prisma;
+}
 
-export default prisma
-
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+export default prisma;
