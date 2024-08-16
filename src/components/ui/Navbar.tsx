@@ -1,52 +1,55 @@
 "use client";
 
-import { HiOutlineShoppingCart } from "react-icons/hi";
+import Link from "next/link";
+import React from "react";
+import ThemeController from "./ThemeController";
 
-const Navbar = () => {
+interface NavbarProps {
+  brandName: string;
+  profileImage: string;
+  onProfileClick: string;
+  onSettingsClick: string;
+  onLogoutClick: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+  brandName,
+  profileImage,
+  onProfileClick,
+  onSettingsClick,
+  onLogoutClick
+}) => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Weather App</a>
+        <a className="btn btn-ghost text-xl">{brandName}</a>
       </div>
       <div className="flex-none">
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <HiOutlineShoppingCart className="text-xl font-normal" />
-              <span className="badge badge-sm indicator-item">8</span>
-            </div>
-          </div>
-          <div
-            tabIndex={0}
-            className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
-            <div className="card-body">
-              <span className="text-lg font-bold">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
-              <div className="card-actions">
-                <button className="btn btn-primary btn-block">View cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ThemeController />
+
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                alt="User Profile"
+                src={profileImage} />
             </div>
           </div>
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
             <li>
-              <a className="justify-between">
+              <Link className="justify-between" href={onProfileClick}>
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li>
+              <Link href={onSettingsClick}>Settings</Link>
+            </li>
+            <li>
+              <Link href={onLogoutClick}>Logout</Link>
+            </li>
           </ul>
         </div>
       </div>
