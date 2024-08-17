@@ -26,6 +26,24 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  regions UserRegion[] // Relation to the UserRegion table
+}
+
+model Region {
+  id    String       @id @default(cuid())
+  name  String       @unique
+  users UserRegion[] // Many-to-many relationship with users
+}
+
+model UserRegion {
+  userId   String
+  regionId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  region Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, regionId]) // Composite primary key to prevent duplicate entries
 }
 
 model Account {
@@ -82,3 +100,5 @@ model Authenticator {
 
   @@id([userId, credentialID])
 }
+
+// Each user should be able to add multiple regions as string and store the data in the database
