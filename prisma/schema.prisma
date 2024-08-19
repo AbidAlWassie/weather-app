@@ -37,13 +37,14 @@ model Region {
 }
 
 model UserRegion {
+  id       String @id @default(cuid())
   userId   String
   regionId String
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   region Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
 
-  @@id([userId, regionId]) // Composite primary key to prevent duplicate entries
+  @@unique([userId, regionId]) // Composite primary key to prevent duplicate entries
 }
 
 model Account {
